@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery.min.js"></script>
+    <title>Гра знайди різницю</title>
+    <style>
+    body {
+        font-family: verdana;
+        color: #444;
+    }
+    
+    .oganesyan {
+        text-decoration: none;
+        font-size: 20px;
+        margin-right: 20px;
+        color: #fff;
+        background: #3C8FB7;
+        padding: 4px 8px;
+        border: 0;
+        cursor: pointer;
+    }
+    
+    #wrap {
+        width: 916px;
+        height: 691px;
+        margin: 0 auto;
+    }
+    
+    #wrap #one,
+    #wrap #two {
+        width: 50%;
+        height: 100%;
+        float: left;
+        background: url(game1.jpg);
+    }
+    
+    #wrap #two {
+        background: url(game2.jpg);
+    }
+    
+    #wrap .area {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        margin: 206px 0 0 143px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+    }
+    
+    #info {
+        width: 200px;
+        text-align: center;
+        margin: 20px auto;
+    }
+    </style>
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        var coordinates = [
+            '206#143',
+            '177#211',
+            '282#197',
+            '233#340',
+            '321#188',
+            '168#397',
+            '323#349',
+            '657#423',
+            '560#105',
+            '476#294',
+            '325#121',
+            '285#402'
+        ]
+
+        var curPoint = 0;
+
+        $('#info').text('Знайди різницю: 0/' + coordinates.length);
+
+        coordinates.forEach(function(item) {
+            item = item.split('#');
+            $('#wrap #one,#wrap #two').append('<div style="margin:' + item[0] + 'px 0 0 ' + item[1] + 'px" class="area"></div>	');
+        });
+
+        $('#wrap .area').click(function() {
+            $(this).css('border', '3px solid red').unbind('click');
+
+            if ($(this).parent().attr('id') == 'one') {
+                $(this).css('border', '3px solid red').unbind('click');
+                $('#two div:eq(' + $('#one div').index(this) + ')').css('border', '3px solid red').unbind('click');
+            } else {
+                $(this).css('border', '3px solid red').unbind('click');
+                $('#one div:eq(' + $('#two div').index(this) + ')').css('border', '3px solid red').unbind('click');
+            }
+
+            curPoint++;
+            $('#info').text('Найдено отличий: ' + curPoint + '/' + coordinates.length);
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="one"></div>
+        <div id="two"></div>
+    </div>
+    <div id="info">
+    </div>
+    <center>
+        <a href="../index.html">
+            <h1 style="color: #4acaa8;
+    font-size: 3.5em;line-height: 1.5em;    font-weight: 700;">Перейти на головну сторінку</h1>
+        </a>
+    </center>
+</body>
+
+</html>
