@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="jquery.min.js"></script>
+<title>Гра "Словотвір" на javascript</title>
+<style>
+body{
+	font-family:verdana;
+	color:#444;
+}
+.oganesyan{
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 20px;
+    color: #fff;
+    background: #3C8FB7;
+    padding: 4px 8px;
+	border: 0;
+	cursor: pointer;
+}
+.slovodel{
+    width: 288px;
+    height: 310px;
+    margin: 0 auto;
+}
+.slovodel div{
+    width: 70px;
+    height: 70px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    float: left;
+    text-align: center;
+    line-height: 70px;
+    font-size: 40px;
+}
+.column{
+    float: left;
+    margin-left: 10%;
+}
+#result input{
+    border: 0;
+    border-bottom: 1px solid #ccc;
+	text-transform: uppercase;
+}
+#result,#error,#words{
+    margin: 20px auto;
+    display: block;
+    width: 320px;
+	text-transform: uppercase;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	//Функция проверки вхождения в массив
+	function in_array(what, where){
+		for(var i=0; i<where.length; i++){
+			if(what.toUpperCase() == where[i]){
+				word_array.splice(i, 1);
+				return true;
+			}
+		}		
+		return false;
+	}
+
+	//Массив слов
+	word_array = ['СТО','ТЕНЬ','ТОН','БАР','СТОН','БОТ','СОН','РАБОТА','РАБ','НОГА','АНТЕНА','ГОСТ','ГОСТЬ','НОТА','НОС','БОС','СТОГ','РОБА','НЕОН','ГРОБ','БОГ','ОНО','СОСНА','БОРГ','АНТЕНА','РОСА','СОНАТА','ТОСТ','РАБОТА'];
+
+	//Ввод слова
+	$('.slovodel div').click(function(){
+		$('#error').text('');
+		$('#result input').val( $('#result input').val() + $(this).text() );
+	});
+	
+	//Проверка
+	$('#result button').click(function(){
+	
+		if( in_array($('#result input').val(),word_array) ){
+			$('#words').append('<br><span>' + $('#result input').val() + '</span>');
+			
+			if (word_array.length == 0){
+				$('#error').text('Поздравляем! Вы отгадали все слова!');
+			}
+			
+		}else{
+			$('#error').text('Такого слова нет, либо оно уже найдено!');
+		}
+		
+		$('#result input').val('');
+	});
+});
+</script>
+</head>
+<body>
+
+	<div class="column">
+		<div id="error"></div>
+		<div id="words">Знайдені слова:</div>
+	</div>
+	
+	<div id="result">
+		<input>
+		<button class="oganesyan">Перевірити</button>
+	</div>
+	
+	<div class="slovodel">	
+		<div>А</div>
+		<div>Г</div>
+		<div>Р</div>
+		<div>А</div>
+		<div>Н</div>
+		<div>О</div>
+		<div>С</div>
+		<div>Б</div>
+		<div>Т</div>
+		<div>А</div>
+		<div>Т</div>
+		<div>О</div>
+		<div>Е</div>
+		<div>Н</div>
+		<div>Ь</div>
+		<div>Н</div>
+	</div>
+
+	<center>
+		<script type="text/javascript"> var curent_url = document.URL; document.write("<a class='oganesyan' href='" + curent_url + "'>Почати спочатку</a>"); </script>	
+	</center><br><br>
+<center>
+    <a href="../index.html">
+        <h1 style="color: #4acaa8;
+    font-size: 3.5em;line-height: 1.5em;    font-weight: 700;">Перейти на головну сторінку</h1>
+    </a>
+</center>
+</body>
+</html>
